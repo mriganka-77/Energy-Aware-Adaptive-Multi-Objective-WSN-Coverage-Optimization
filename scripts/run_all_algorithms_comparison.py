@@ -5,10 +5,17 @@ across spatial coverage, overlap reduction, mobility energy, and downstream Hybr
 """
 
 import os
+import sys
+from pathlib import Path
 import time
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+# Ensure workspace root is in sys.path
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from src.config.simulation_config import NetworkConfig
 from src.models.network import WSNNetwork

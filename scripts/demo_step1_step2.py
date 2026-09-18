@@ -5,8 +5,15 @@ redundant overlap calculation, coverage hole detection, and Voronoi diagram anal
 """
 
 import os
+import sys
+from pathlib import Path
 import time
 import numpy as np
+
+# Ensure workspace root is in sys.path
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from src.config.simulation_config import NetworkConfig
 from src.models.network import WSNNetwork

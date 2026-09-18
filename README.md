@@ -40,6 +40,18 @@ A research-grade Wireless Sensor Network (WSN) optimization framework that unifi
 │   ├── config/                   # Simulation parameters, radio models, and field dimensions
 │   ├── app.js                    # Core logic and Three.js engine for the interactive workbench
 │   └── style.css                 # Liquid glass styling and UI components
+├── docs/                         # Specifications & research guides
+│   ├── PRD.md                    # Product Requirements Document
+│   ├── architecture.md           # System architecture design
+│   ├── design.md                 # UI/UX design specifications
+│   ├── phases.md                 # Project implementation phases
+│   └── WSN_Coverage_Optimization_Complete_Guide.pdf # Master guide
+├── scripts/                      # Experiment and benchmark runners
+│   ├── run_deployment_then_routing_pipeline.py
+│   ├── run_all_algorithms_comparison.py
+│   └── demo_step1_step2.py
+├── tests/                        # Integration & verification test suite
+│   └── test_routing_protocols.py
 ├── data/                         # Datasets & benchmark energy tables
 │   ├── hybrid_leach_pegasis_energy.csv
 │   └── res-energy table.csv
@@ -56,9 +68,7 @@ A research-grade Wireless Sensor Network (WSN) optimization framework that unifi
 ├── index.html                    # 3D Liquid Glass Interactive Web Workbench
 ├── package.json                  # Frontend dependencies (Three.js, Chart.js, Vite, Lucide)
 ├── requirements.txt              # Python dependencies (NumPy, SciPy, Matplotlib, Pandas)
-├── PRD.md                        # Product Requirements & mathematical formulation
-├── architecture.md               # Detailed system architecture specification
-└── test_routing_protocols.py     # End-to-end deployment & routing integration test
+└── vercel.json                   # Vercel deployment configuration
 ```
 
 ---
@@ -82,15 +92,20 @@ pip install -r requirements.txt
 
 - **End-to-End Pipeline (Deployment Optimization ➡️ Multi-Hop Routing)**:
   ```bash
-  python3 test_routing_protocols.py
+  python3 tests/test_routing_protocols.py
   ```
 
 - **Comparative Optimization Benchmark (EA-VVF-MOPSO vs. GA vs. PSO vs. VFA)**:
   ```bash
-  python3 run_all_algorithms_comparison.py
+  python3 scripts/run_all_algorithms_comparison.py
   ```
 
-- **Run Legacy Routing Benchmark**:
+- **Deployment ➡️ Routing Pipeline Evaluation**:
+  ```bash
+  python3 scripts/run_deployment_then_routing_pipeline.py
+  ```
+
+- **Run Legacy Standalone Routing Benchmark**:
   ```bash
   python3 legacy/comparison.py
   ```
@@ -113,8 +128,11 @@ The repository includes a modern, high-performance web dashboard featuring:
 # Install NPM dependencies
 npm install
 
-# Start local Vite development server
+# Start local Vite development server (3D Workbench)
 npm run dev
+
+# Or start the legacy React dashboard
+npm run dev:legacy
 ```
 
 Visit `http://localhost:3000/` in your browser.
@@ -139,13 +157,14 @@ npm run build
 
 ## 📜 Documentation
 
-- [PRD.md](PRD.md) — Comprehensive product requirements, objective functions, and constraints.
-- [architecture.md](architecture.md) — System architecture, module boundaries, and design patterns.
-- [phases.md](phases.md) — Detailed implementation phases and milestone breakdown.
-- [WSN_Coverage_Optimization_Complete_Guide.pdf](WSN_Coverage_Optimization_Complete_Guide.pdf) — Complete guide and theoretical background.
+- [docs/PRD.md](docs/PRD.md) — Comprehensive product requirements, objective functions, and constraints.
+- [docs/architecture.md](docs/architecture.md) — System architecture, module boundaries, and design patterns.
+- [docs/phases.md](docs/phases.md) — Detailed implementation phases and milestone breakdown.
+- [docs/WSN_Coverage_Optimization_Complete_Guide.pdf](docs/WSN_Coverage_Optimization_Complete_Guide.pdf) — Complete guide and theoretical background.
 
 ---
 
 ## 📄 License
 
 This project is licensed under the MIT License — see the repository for details.
+
