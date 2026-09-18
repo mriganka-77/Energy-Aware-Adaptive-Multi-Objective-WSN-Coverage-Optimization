@@ -1,8 +1,22 @@
 {
-  "name": "energy-efficient-wsn-routing",
-  "private": true,
+  "name": "wsn-coverage-liquid-glass-app",
+  "version": "1.0.0",
+  "description": "3D Liquid Glass Interactive Web App for WSN Coverage Optimization & Hybrid LEACH-PEGASIS Routing",
+  "type": "module",
   "scripts": {
-    "build": "cd web && npm install && npm run build",
-    "dev": "cd web && npm run dev"
+    "dev": "vite --host --port 3000",
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev:legacy": "cd web && npm run dev",
+    "build:legacy": "cd web && npm run build"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.7",
+    "lucide": "^0.475.0",
+    "prismjs": "^1.29.0",
+    "three": "^0.173.0"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
   }
 }

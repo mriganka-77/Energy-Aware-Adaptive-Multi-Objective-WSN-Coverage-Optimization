@@ -1,0 +1,7 @@
+Pipeline,Deployment,FND,HND,LND,Final_Energy_J
+LEACH (Random),Random Drop,56,135,287,0.0
+LEACH (Optimized),EA-VVF-MOPSO,48,48,264,0.0
+PEGASIS (Random),Random Drop,97,367,479,0.0
+PEGASIS (Optimized),EA-VVF-MOPSO,159,339,428,0.0
+HYBRID (Random),Random Drop,204,439,696,0.0
+HYBRID (Optimized),EA-VVF-MOPSO,200,400,646,0.0

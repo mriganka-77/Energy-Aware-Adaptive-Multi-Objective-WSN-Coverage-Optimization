@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WSN Spatial Topology & Multi-Hop Routing Laboratory</title>
+  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <!-- Ambient Liquid Dark Motion Background Canvas -->
+  <canvas id="ambient-liquid-canvas"></canvas>
+
+  <!-- ================= APPLICATION HEADER ================= -->
+  <header class="app-header">
+    <div class="brand-logo" onclick="location.reload()">
+      <div class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">WSN TOPOLOGY LAB</span>
+        <span class="brand-subtitle">EA-VVF-MOPSO Engine</span>
+      </div>
+      <span class="brand-badge">RESEARCH WORKBENCH</span>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab-btn active" data-tab="3d-sim">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
+        <span>3D Field Topology</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="2d-grid">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+        <span>Voronoi & Multiplicity</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="routing">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"></path><path d="m15 5 7 7-7 7"></path></svg>
+        <span>Routing Protocols</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="code">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <span>Algorithm Source</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="theory">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+        <span>Formulation & Theory</span>
+      </button>
+    </nav>
+
+    <div class="header-actions">
+      <button id="btn-audio-toggle" class="btn-sound-toggle" title="Toggle Synthesized Audio Feedback">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+        <span id="audio-text">Audio Feedback</span>
+      </button>
+      <a href="/WSN_Coverage_Optimization_Complete_Guide.pdf" download="WSN_Coverage_Optimization_Complete_Guide.pdf" class="btn-download-pdf" title="Download Master Research Specification PDF">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Technical Guide PDF</span>
+      </a>
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        <span>ENGINE ONLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN DASHBOARD CONTAINER ================= -->
+  <main class="app-container">
+
+    <!-- Top Live HUD Metrics Banner -->
+    <section class="metrics-grid">
+      <div class="glass-panel metric-card glass-panel-cyan" data-tilt>
+        <div class="metric-label">
+          <span>Coverage Ratio (CR)</span>
+          <span class="metric-tag">Target Area</span>
+        </div>
+        <div class="metric-value" id="hud-coverage">94.57%</div>
+        <div class="metric-delta delta-positive">
+          <span>+26.4% improvement over random drop</span>
+        </div>
+      </div>
+
+      <div class="glass-panel metric-card glass-panel-amber" data-tilt>
+        <div class="metric-label">
+          <span>Overlap Redundancy (OR)</span>
+          <span class="metric-tag">Sensing Overlap</span>
+        </div>
+        <div class="metric-value" id="hud-overlap">81.65%</div>
+        <div class="metric-delta delta-warning">
+          <span>Damped via Virtual Force repulsion</span>
+        </div>
+      </div>
+
+      <div class="glass-panel metric-card glass-panel-emerald" data-tilt>
+        <div class="metric-label">
+          <span>Blindspot Ratio (HR)</span>
+          <span class="metric-tag">Coverage Holes</span>
+        </div>
+        <div class="metric-value" id="hud-holes">5.43%</div>
+        <div class="metric-delta delta-positive">
+          <span>Suppressed to &lt; 6.0% field area</span>
+        </div>
+      </div>
+
+      <div class="glass-panel metric-card glass-panel-purple" data-tilt>
+        <div class="metric-label">
+          <span>First Node Dead (FND)</span>
+          <span class="metric-tag">Hybrid Protocol</span>
+        </div>
+        <div class="metric-value">Round 535</div>
+        <div class="metric-delta delta-positive">
+          <span>5.94x lifetime gain vs. LEACH (R90)</span>
+        </div>
+      </div>
+
+      <div class="glass-panel metric-card" data-tilt>
+        <div class="metric-label">
+          <span>Mean Multiplicity (K)</span>
+          <span class="metric-tag">Degree of Redundancy</span>
+        </div>
+        <div class="metric-value" id="hud-multiplicity">3.18x</div>
+        <div class="metric-delta delta-neutral">
+          <span>Average sensors monitoring covered point</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 1: 3D VIRTUAL SIMULATION ================= -->
+    <section class="tab-view active" id="view-3d-sim">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Field Topology & Sensor Deployment</h2>
+          <p class="section-subtitle">WebGL interactive simulation showing spatial coordinates, translucent sensing disks, radio link graph, and Base Station relay.</p>
+        </div>
+      </div>
+
+      <div class="sim-workspace-grid">
+        <!-- 3D Viewport with Parallax Motion -->
+        <div class="glass-panel viewport-container" id="viewport-frame">
+          <div id="threejs-canvas-container"></div>
+
+          <!-- Top Viewport Badge & Legend -->
+          <div class="viewport-overlay-top">
+            <div class="viewport-badge">
+              <span class="live-pulse-dot"></span>
+              <span>100m × 100m SPATIAL FIELD • SINK (50, 150)</span>
+            </div>
+            <div class="viewport-chip" id="viewport-fps-chip">
+              <span>60 FPS • HARDWARE ACCELERATED</span>
+            </div>
+          </div>
+
+          <!-- Interactive 3D Node Tooltip -->
+          <div id="node-3d-tooltip" class="glass-3d-tooltip" style="display: none;">
+            <div class="tt-header">
+              <span class="tt-title" id="tt-node-id">Sensor Node #0</span>
+              <span class="tt-badge" id="tt-node-role">Member</span>
+            </div>
+            <div class="tt-body">
+              <div class="tt-row"><span>Position:</span> <b id="tt-node-pos">(0.0, 0.0)</b></div>
+              <div class="tt-row"><span>Battery:</span> <b id="tt-node-battery">100% (0.500 J)</b></div>
+              <div class="tt-row"><span>Distance to Sink:</span> <b id="tt-node-dist">0.0 m</b></div>
+              <div class="tt-row"><span>Sensing Disk:</span> <b id="tt-node-rs">Rs = 15m</b></div>
+            </div>
+          </div>
+
+          <!-- Bottom Camera Controls -->
+          <div class="viewport-controls-bar">
+            <button class="btn-ctrl active" id="btn-cam-iso" onclick="setCameraView('iso')">Perspective</button>
+            <button class="btn-ctrl" id="btn-cam-top" onclick="setCameraView('top')">Top-Down</button>
+            <button class="btn-ctrl" id="btn-cam-sink" onclick="setCameraView('sink')">Sink View</button>
+            <div class="ctrl-separator"></div>
+            <button class="btn-ctrl" id="btn-toggle-orbit" onclick="toggleOrbitCam()">
+              <span id="orbit-cam-icon">↻</span> 360° Motion
+            </button>
+            <button class="btn-ctrl active" id="btn-toggle-bubbles" onclick="toggleSensingBubbles()">
+              <span>Disk Bubbles</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Control Sidebar -->
+        <aside class="glass-panel sim-sidebar" data-tilt>
+          <div class="sidebar-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Simulation Parameters</span>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Benchmark Deployment Scenario</span>
+            </div>
+            <select id="select-preset" class="form-select">
+              <option value="s1">Scenario 1: Sparse Grid (N=30, Rs=10m)</option>
+              <option value="s2" selected>Scenario 2: Standard Benchmark (N=50, Rs=15m)</option>
+              <option value="s3">Scenario 3: High Density Cluster (N=80, Rs=12m)</option>
+              <option value="s4">Scenario 4: Extended Network Array (N=100, Rs=15m)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Optimization Algorithm</span>
+            </div>
+            <select id="select-algorithm" class="form-select">
+              <option value="ea-vvf-mopso" selected>EA-VVF-MOPSO (Energy-Aware Proposed)</option>
+              <option value="vfa">Virtual Force Algorithm (VFA)</option>
+              <option value="pso">Particle Swarm Optimization (PSO)</option>
+              <option value="ga">Genetic Algorithm (GA)</option>
+              <option value="voronoi">Centroidal Voronoi Tessellation</option>
+              <option value="mopso">Standard MOPSO</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Sensor Nodes (N)</span>
+              <span class="control-val" id="val-nodes">50</span>
+            </div>
+            <input type="range" id="slider-nodes" min="15" max="150" value="50" step="5" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Sensing Radius (Rs)</span>
+              <span class="control-val" id="val-rs">15m</span>
+            </div>
+            <input type="range" id="slider-rs" min="8" max="30" value="15" step="1" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Communication Radius (Rc)</span>
+              <span class="control-val" id="val-rc">30m</span>
+            </div>
+            <input type="range" id="slider-rc" min="15" max="60" value="30" step="1" />
+          </div>
+
+          <hr class="section-divider" />
+
+          <!-- Phase 1: Spatial Repositioning -->
+          <div class="step-label">PHASE 1: SPATIAL OPTIMIZATION</div>
+          <button class="btn-primary-glow" id="btn-run-optimization">
+            <span>Execute Spatial Repositioning</span>
+          </button>
+
+          <!-- Phase 2: Multi-Hop Routing -->
+          <div class="step-label step-label-emerald">PHASE 2: DATA ROUTING DYNAMICS</div>
+          <div class="control-group" style="margin-bottom: 0.5rem;">
+            <select id="select-routing-proto" class="form-select">
+              <option value="hybrid" selected>Hybrid LEACH-PEGASIS Protocol</option>
+              <option value="pegasis">PEGASIS Protocol (Chain Hop)</option>
+              <option value="leach">LEACH Protocol (Direct Cluster Relay)</option>
+            </select>
+          </div>
+
+          <button class="btn-primary-glow btn-routing" id="btn-start-routing">
+            <span>Start Multi-Hop Packet Stream</span>
+          </button>
+
+          <div id="routing-live-status-badge" style="display: none;">
+            <span id="routing-live-round-text">Round 0 / 1000</span> • <span id="routing-live-alive-text">50/50 Alive</span>
+          </div>
+
+          <hr class="section-divider" />
+
+          <button class="btn-secondary" id="btn-reset-deployment">
+            <span>Reset to Initial Distribution</span>
+          </button>
+
+          <div class="helper-text">
+            <span>Phase 1: Reposition sensor coordinates to optimize coverage and eliminate holes.</span>
+            <span>Phase 2: Stream packet payloads to Base Station (50, 150) under first-order radio energy constraints.</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 2: 2D HEATMAPS & VORONOI ================= -->
+    <section class="tab-view" id="view-2d-grid">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Vectorized Coverage Matrix & Voronoi Partitions</h2>
+          <p class="section-subtitle">Real-time analytical evaluation of sensing multiplicity matrices and planar polygonal Voronoi tessellations.</p>
+        </div>
+      </div>
+
+      <div class="dual-canvas-grid">
+        <div class="glass-panel canvas-card glass-panel-cyan" data-tilt>
+          <h3 class="card-heading">
+            <span>Coverage Multiplicity Heatmap</span>
+            <span class="card-caption">Grid Resolution: 1.0m</span>
+          </h3>
+          <p class="card-description">
+            Dark = Blindspot (0x) • Cyan = Single Ideal Coverage (1x) • Emerald = Double Overlap (2x) • Amber/Rose = High Redundancy (3x+)
+          </p>
+          <div class="canvas-container">
+            <canvas id="heatmap-canvas" class="display-canvas" width="400" height="380"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-panel canvas-card glass-panel-purple" data-tilt>
+          <h3 class="card-heading">
+            <span>Bounded Voronoi Cell Partition</span>
+            <span class="card-caption">Planar Tessellation</span>
+          </h3>
+          <p class="card-description">
+            Convex polygon partitions identifying localized sensor territory density and frontier boundary holes.
+          </p>
+          <div class="canvas-container">
+            <canvas id="voronoi-canvas" class="display-canvas" width="400" height="380"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 3: ROUTING & BENCHMARKS ================= -->
+    <section class="tab-view" id="view-routing">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Protocol Benchmark & Lifecycle Telemetry</h2>
+          <p class="section-subtitle">Comparative 1000-round operational lifetime, Cluster Head rotation, and residual energy dissipation.</p>
+        </div>
+      </div>
+
+      <!-- Live Interactive Routing Dashboard Controls -->
+      <div class="glass-panel routing-control-banner" data-tilt>
+        <div class="banner-flex">
+          <div>
+            <h3 class="banner-heading">Interactive Packet Flow & Telemetry Inspector</h3>
+            <p class="banner-subtext">
+              Execute multi-round telemetry cycles to evaluate Cluster Head dissipation versus daisy-chain forwarding.
+            </p>
+          </div>
+
+          <div class="banner-actions">
+            <select id="select-routing-tab-proto" class="form-select" style="width: auto; min-width: 200px;">
+              <option value="hybrid" selected>Hybrid LEACH-PEGASIS</option>
+              <option value="pegasis">PEGASIS Protocol</option>
+              <option value="leach">LEACH Protocol</option>
+            </select>
+
+            <button class="btn-primary-glow btn-routing" id="btn-run-routing-tab">
+              <span>Execute Routing Cycle</span>
+            </button>
+
+            <button class="btn-secondary" id="btn-reset-routing-tab">
+              <span>Reset Energy States</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Telemetry Counters -->
+        <div class="telemetry-grid">
+          <div class="telemetry-tile">
+            <div class="telemetry-label">OPERATIONAL ROUND</div>
+            <div id="telemetry-round" class="telemetry-value text-cyan">Round 0 / 1000</div>
+          </div>
+          <div class="telemetry-tile">
+            <div class="telemetry-label">ACTIVE SENSORS (ALIVE)</div>
+            <div id="telemetry-alive" class="telemetry-value text-emerald">50 / 50 Alive</div>
+          </div>
+          <div class="telemetry-tile">
+            <div class="telemetry-label">AVERAGE RESIDUAL BATTERY</div>
+            <div id="telemetry-energy" class="telemetry-value text-amber">0.5000 J (100%)</div>
+          </div>
+          <div class="telemetry-tile">
+            <div class="telemetry-label">PACKETS RECEIVED AT SINK</div>
+            <div id="telemetry-packets" class="telemetry-value text-purple">0 Packets</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="routing-charts-grid">
+        <div class="glass-panel chart-card glass-panel-emerald" data-tilt>
+          <h3 class="card-heading">
+            <span>Network Lifetime: Active Nodes vs. Rounds</span>
+            <span class="card-caption">N=50, E0=0.5J</span>
+          </h3>
+          <div class="chart-wrapper">
+            <canvas id="chart-lifetime"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-panel chart-card glass-panel-cyan" data-tilt>
+          <h3 class="card-heading">
+            <span>Residual Energy Decay vs. Rounds</span>
+            <span class="card-caption">Joules / Node</span>
+          </h3>
+          <div class="chart-wrapper">
+            <canvas id="chart-energy"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Algorithmic Optimization & Mobility Energy Table -->
+      <div class="glass-panel data-table-card">
+        <h3 class="card-heading" style="margin-bottom: 0.85rem;">
+          <span>Spatial Placement Algorithms: Empirical Benchmark Comparison</span>
+          <span class="card-caption">100m × 100m Field • N=50 Nodes</span>
+        </h3>
+        <div class="table-responsive">
+          <table class="glass-table">
+            <thead>
+              <tr>
+                <th>Optimization Algorithm</th>
+                <th>Coverage (CR)</th>
+                <th>Overlap (OR)</th>
+                <th>Displacement</th>
+                <th>Relocation Energy</th>
+                <th>Retained Initial E0</th>
+                <th>Downstream FND</th>
+                <th>HND (50% Alive)</th>
+                <th>Assessment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge-tag badge-leach">Random Placement</span></td>
+                <td>94.57%</td>
+                <td>81.65%</td>
+                <td>0.0 m</td>
+                <td>0.000 J</td>
+                <td>100.0% (0.500 J)</td>
+                <td>Round 204</td>
+                <td>Round 439</td>
+                <td><span class="status-muted">Unoptimized Baseline</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-tag badge-pegasis">Standard PSO</span></td>
+                <td>100.00%</td>
+                <td>84.86%</td>
+                <td>2,644.4 m</td>
+                <td>13.222 J</td>
+                <td>47.1% (0.235 J)</td>
+                <td>Round 175</td>
+                <td>Round 424</td>
+                <td><span class="status-rose">High Mobility Penalty</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-tag badge-purple">Genetic Algorithm (GA)</span></td>
+                <td>99.98%</td>
+                <td>81.89%</td>
+                <td>2,865.4 m</td>
+                <td>14.327 J</td>
+                <td>42.7% (0.213 J)</td>
+                <td>Round 275</td>
+                <td>Round 649</td>
+                <td><span class="status-amber">Excessive Relocation</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-tag badge-amber">Virtual Force (VFA)</span></td>
+                <td>100.00%</td>
+                <td>96.65%</td>
+                <td>475.1 m</td>
+                <td>2.375 J</td>
+                <td>90.5% (0.452 J)</td>
+                <td>Round 449</td>
+                <td>Round 575</td>
+                <td><span class="status-amber">Elevated Overlap</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-tag badge-subtle">Centroidal Voronoi</span></td>
+                <td>46.24%</td>
+                <td>62.16%</td>
+                <td>2,681.6 m</td>
+                <td>13.408 J</td>
+                <td>46.4% (0.232 J)</td>
+                <td>Round 640</td>
+                <td>Round 725</td>
+                <td><span class="status-rose">Boundary Contraction</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-tag badge-cyan">Standard MOPSO</span></td>
+                <td>93.24%</td>
+                <td>67.46%</td>
+                <td>2,227.2 m</td>
+                <td>11.136 J</td>
+                <td>55.4% (0.277 J)</td>
+                <td>Round 287</td>
+                <td>Round 597</td>
+                <td><span class="status-amber">Moderate Displacement</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td><span class="badge-tag badge-hybrid">EA-VVF-MOPSO (Proposed)</span></td>
+                <td><b>96.97%</b></td>
+                <td><b>76.43%</b></td>
+                <td><b>259.8 m</b></td>
+                <td><b>1.299 J</b></td>
+                <td><b>94.8% (0.474 J)</b></td>
+                <td><b>Round 275</b></td>
+                <td><b>Round 674</b></td>
+                <td><span class="status-emerald">Optimal Pareto Compromise</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 4: CODEBASE EXPLORER ================= -->
+    <section class="tab-view" id="view-code">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Source Code Architecture</h2>
+          <p class="section-subtitle">Modular Python simulation modules implementing vector evaluation, virtual force dynamics, and hybrid clustering.</p>
+        </div>
+      </div>
+
+      <div class="glass-panel code-explorer-grid">
+        <div class="file-tree-sidebar">
+          <div class="sidebar-category">CORE ALGORITHMS (src/)</div>
+          <div class="file-item active" data-file="sensor.py" onclick="viewCodeFile('sensor.py')">
+            <span>sensor.py</span>
+          </div>
+          <div class="file-item" data-file="coverage_model.py" onclick="viewCodeFile('coverage_model.py')">
+            <span>coverage_model.py</span>
+          </div>
+          <div class="file-item" data-file="voronoi.py" onclick="viewCodeFile('voronoi.py')">
+            <span>voronoi.py</span>
+          </div>
+          <div class="file-item" data-file="hybrid_leach_pegasis.py" onclick="viewCodeFile('hybrid_leach_pegasis.py')">
+            <span>hybrid_leach_pegasis.py</span>
+          </div>
+        </div>
+
+        <div class="code-viewer-container">
+          <div class="code-header">
+            <div class="code-filename">
+              <span id="code-filename-title">sensor.py</span>
+            </div>
+          </div>
+          <pre class="language-python"><code id="code-display"># Loading module...</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 5: THEORY & FORMULATION ================= -->
+    <section class="tab-view" id="view-theory">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Theoretical Formulation & Mathematical Model</h2>
+          <p class="section-subtitle">Multi-objective Pareto vector, energy-aware displacement constraints, and first-order radio dissipation equations.</p>
+        </div>
+      </div>
+
+      <!-- Executive Problem Formulation -->
+      <div class="executive-summary-card">
+        <h3 class="summary-heading">System Problem Formulation</h3>
+        <p class="summary-text">
+          Random sensor deployment in wireless sensor networks inevitably produces non-uniform spatial topologies, manifesting as high-density clusters (redundant sensing overlap) and unmonitored coverage holes. While mobile sensor actuators can theoretically reposition nodes into regular lattices, unconstrained physical relocation rapidly depletes onboard electrochemical batteries (typically E0 = 0.50 Joules).
+        </p>
+        <p class="summary-text">
+          <b>EA-VVF-MOPSO</b> addresses this trade-off by coupling Multi-Objective Particle Swarm Optimization with bounded Voronoi territory guidance and Virtual Force repulsion. An <i>Energy-Aware Controller</i> enforces zero-mobility barriers on energy-depleted nodes, preserving power for mission-critical downstream packet forwarding under the <b>Hybrid LEACH-PEGASIS</b> protocol.
+        </p>
+      </div>
+
+      <div class="theory-grid">
+        <div class="glass-panel theory-card glass-panel-cyan" data-tilt>
+          <h3 class="card-heading">Multi-Objective Fitness Vector</h3>
+          <p class="card-body-text">
+            The optimization objective maps a multi-criteria vector balancing coverage quality against actuator displacement energy:
+          </p>
+          <div class="formula-block">
+            max F = [ w_C · CR - w_O · OR - w_H · HR + w_E · E_res + w_K · K_conn - w_M · M_cost ]
+          </div>
+          <p class="card-body-text">
+            Non-dominated candidate solutions are sorted into a Pareto archive using crowding-distance truncation to preserve diversity across the objective frontier.
+          </p>
+        </div>
+
+        <div class="glass-panel theory-card glass-panel-purple" data-tilt>
+          <h3 class="card-heading">First-Order Radio Energy Dissipation</h3>
+          <p class="card-body-text">
+            Energy dissipation per k-bit transmission over distance d follows the Heinzelman free-space and multipath model:
+          </p>
+          <div class="formula-block">
+            E_tx(k, d) = k · E_elec + (d &lt; d0 ? k · &epsilon;_fs · d² : k · &epsilon;_mp · d⁴)
+          </div>
+          <p class="card-body-text">
+            Where cross-over threshold d0 = sqrt(&epsilon;_fs / &epsilon;_mp) = 87.7m. Cluster Heads incur additional data aggregation dissipation EDA = 5 nJ/bit/signal.
+          </p>
+        </div>
+      </div>
+
+      <!-- PDF Download Banner -->
+      <div class="glass-panel pdf-banner" data-tilt>
+        <div>
+          <h4 class="pdf-banner-title">WSN Coverage & Routing Master Technical Guide (PDF)</h4>
+          <p class="pdf-banner-desc">
+            Complete document containing comprehensive mathematical proofs, algorithm pseudocode, and benchmark results.
+          </p>
+        </div>
+        <a href="/WSN_Coverage_Optimization_Complete_Guide.pdf" download="WSN_Coverage_Optimization_Complete_Guide.pdf" class="btn-primary-glow" style="width: auto; padding: 0.65rem 1.3rem;">
+          <span>Download Master Guide PDF</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <div>EA-VVF-MOPSO • Energy-Aware Adaptive WSN Coverage Optimization & Hybrid Multi-Hop Routing</div>
+    <div class="footer-meta">Spatial Dynamics & Protocol Analytics Laboratory</div>
+  </footer>
+
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
