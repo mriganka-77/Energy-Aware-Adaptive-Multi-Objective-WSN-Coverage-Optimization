@@ -139,7 +139,7 @@ def run_deployment_then_routing_experiment():
 
     summary_df = pd.DataFrame([
         {"Pipeline": "LEACH (Random)", "Deployment": "Random Drop", "FND": l_fnd_rand, "HND": l_hnd_rand, "LND": l_lnd_rand, "Final_Energy_J": l_eng_rand[-1]},
-        {"Pipeline": "LEACH (Optimized)", "Deployment": "EA-VVF-MOPSO", "FND": l_fnd_opt, "HND": l_fnd_opt, "LND": l_lnd_opt, "Final_Energy_J": l_eng_opt[-1]},
+        {"Pipeline": "LEACH (Optimized)", "Deployment": "EA-VVF-MOPSO", "FND": l_fnd_opt, "HND": l_hnd_opt, "LND": l_lnd_opt, "Final_Energy_J": l_eng_opt[-1]},
         {"Pipeline": "PEGASIS (Random)", "Deployment": "Random Drop", "FND": p_fnd_rand, "HND": p_hnd_rand, "LND": p_lnd_rand, "Final_Energy_J": p_eng_rand[-1]},
         {"Pipeline": "PEGASIS (Optimized)", "Deployment": "EA-VVF-MOPSO", "FND": p_fnd_opt, "HND": p_hnd_opt, "LND": p_lnd_opt, "Final_Energy_J": p_eng_opt[-1]},
         {"Pipeline": "HYBRID (Random)", "Deployment": "Random Drop", "FND": h_fnd_rand, "HND": h_hnd_rand, "LND": h_lnd_rand, "Final_Energy_J": h_eng_rand[-1]},

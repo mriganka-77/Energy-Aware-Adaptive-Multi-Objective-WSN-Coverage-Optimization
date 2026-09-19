@@ -32,34 +32,66 @@
 
     <!-- Navigation Tabs -->
     <nav class="nav-tabs">
-      <button class="nav-tab-btn active" data-tab="3d-sim">
+      <button class="nav-tab-btn active" data-tab="3d-sim" data-explain="nav-3d">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
         <span>3D Field Topology</span>
       </button>
-      <button class="nav-tab-btn" data-tab="2d-grid">
+      <button class="nav-tab-btn" data-tab="2d-grid" data-explain="nav-2d">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
         <span>Voronoi & Multiplicity</span>
       </button>
-      <button class="nav-tab-btn" data-tab="routing">
+      <button class="nav-tab-btn" data-tab="routing" data-explain="nav-routing">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"></path><path d="m15 5 7 7-7 7"></path></svg>
         <span>Routing Protocols</span>
       </button>
-      <button class="nav-tab-btn" data-tab="code">
+      <button class="nav-tab-btn" data-tab="code" data-explain="nav-code">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         <span>Algorithm Source</span>
       </button>
-      <button class="nav-tab-btn" data-tab="theory">
+      <button class="nav-tab-btn" data-tab="theory" data-explain="nav-theory">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
         <span>Formulation & Theory</span>
       </button>
     </nav>
 
     <div class="header-actions">
-      <button id="btn-audio-toggle" class="btn-sound-toggle" title="Toggle Synthesized Audio Feedback">
+      <!-- Export Research Dropdown Toolbar -->
+      <div class="export-dropdown-wrapper">
+        <button id="btn-export-menu" class="btn-export-menu" data-explain="btn-export-menu" title="Export Research Datasets and Figures">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Export Research</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="export-dropdown-menu" id="export-dropdown-menu">
+          <button id="btn-export-csv" class="export-menu-item" data-explain="btn-export-csv">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <div>
+              <div class="export-item-title">Topology Dataset (.CSV)</div>
+              <div class="export-item-sub">Node coordinates, battery, and cluster roles</div>
+            </div>
+          </button>
+          <button id="btn-export-json" class="export-menu-item" data-explain="btn-export-json">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <div>
+              <div class="export-item-title">Metrics Telemetry (.JSON)</div>
+              <div class="export-item-sub">CR, OR, HR, K, FND and scenario parameters</div>
+            </div>
+          </button>
+          <button id="btn-export-snapshot" class="export-menu-item" data-explain="btn-export-snapshot">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+            <div>
+              <div class="export-item-title">Publication Figure (.PNG)</div>
+              <div class="export-item-sub">High-res canvas snapshot for LaTeX / IEEE</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <button id="btn-audio-toggle" class="btn-sound-toggle" title="Toggle Synthesized Audio Feedback" data-explain="btn-audio">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
         <span id="audio-text">Audio Feedback</span>
       </button>
-      <a href="/WSN_Coverage_Optimization_Complete_Guide.pdf" download="WSN_Coverage_Optimization_Complete_Guide.pdf" class="btn-download-pdf" title="Download Master Research Specification PDF">
+      <a href="/WSN_Coverage_Optimization_Complete_Guide.pdf" download="WSN_Coverage_Optimization_Complete_Guide.pdf" class="btn-download-pdf" title="Download Master Research Specification PDF" data-explain="btn-pdf">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         <span>Technical Guide PDF</span>
       </a>
@@ -75,51 +107,51 @@
 
     <!-- Top Live HUD Metrics Banner -->
     <section class="metrics-grid">
-      <div class="glass-panel metric-card glass-panel-cyan" data-tilt>
+      <div class="glass-panel metric-card glass-panel-cyan" data-tilt data-explain="hud-cr">
         <div class="metric-label">
           <span>Coverage Ratio (CR)</span>
           <span class="metric-tag">Target Area</span>
         </div>
         <div class="metric-value" id="hud-coverage">94.57%</div>
-        <div class="metric-delta delta-positive">
-          <span>+26.4% improvement over random drop</span>
+        <div class="metric-delta delta-neutral" id="hud-coverage-delta-wrap">
+          <span id="hud-coverage-delta">Initial random deployment baseline</span>
         </div>
       </div>
 
-      <div class="glass-panel metric-card glass-panel-amber" data-tilt>
+      <div class="glass-panel metric-card glass-panel-amber" data-tilt data-explain="hud-or">
         <div class="metric-label">
           <span>Overlap Redundancy (OR)</span>
           <span class="metric-tag">Sensing Overlap</span>
         </div>
         <div class="metric-value" id="hud-overlap">81.65%</div>
-        <div class="metric-delta delta-warning">
-          <span>Damped via Virtual Force repulsion</span>
+        <div class="metric-delta delta-neutral" id="hud-overlap-delta-wrap">
+          <span id="hud-overlap-delta">Baseline sensing overlap</span>
         </div>
       </div>
 
-      <div class="glass-panel metric-card glass-panel-emerald" data-tilt>
+      <div class="glass-panel metric-card glass-panel-emerald" data-tilt data-explain="hud-hr">
         <div class="metric-label">
           <span>Blindspot Ratio (HR)</span>
           <span class="metric-tag">Coverage Holes</span>
         </div>
         <div class="metric-value" id="hud-holes">5.43%</div>
-        <div class="metric-delta delta-positive">
-          <span>Suppressed to &lt; 6.0% field area</span>
+        <div class="metric-delta delta-neutral" id="hud-holes-delta-wrap">
+          <span id="hud-holes-delta">Unmonitored field blindspots</span>
         </div>
       </div>
 
-      <div class="glass-panel metric-card glass-panel-purple" data-tilt>
+      <div class="glass-panel metric-card glass-panel-purple" data-tilt data-explain="hud-fnd">
         <div class="metric-label">
           <span>First Node Dead (FND)</span>
           <span class="metric-tag">Hybrid Protocol</span>
         </div>
-        <div class="metric-value">Round 535</div>
-        <div class="metric-delta delta-positive">
-          <span>5.94x lifetime gain vs. LEACH (R90)</span>
+        <div class="metric-value" id="hud-fnd">Round 535</div>
+        <div class="metric-delta delta-positive" id="hud-fnd-delta-wrap">
+          <span id="hud-fnd-delta">5.94x lifetime gain vs. LEACH (R90)</span>
         </div>
       </div>
 
-      <div class="glass-panel metric-card" data-tilt>
+      <div class="glass-panel metric-card" data-tilt data-explain="hud-k">
         <div class="metric-label">
           <span>Mean Multiplicity (K)</span>
           <span class="metric-tag">Degree of Redundancy</span>
@@ -144,6 +176,31 @@
         <!-- 3D Viewport with Parallax Motion -->
         <div class="glass-panel viewport-container" id="viewport-frame">
           <div id="threejs-canvas-container"></div>
+
+          <!-- Floating Spatial Interaction Toolbar -->
+          <div class="viewport-toolbar" id="viewport-toolbar" data-explain="viewport-toolbar">
+            <button class="tool-btn active" id="btn-tool-inspect" title="Inspect & Orbit 3D Camera">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+              <span>Inspect</span>
+            </button>
+            <button class="tool-btn" id="btn-tool-drag" title="Drag & Relocate Sensor Nodes">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v7M10 10.5V6a2 2 0 0 0-4 0v8.5a6.5 6.5 0 0 0 13 0V13a2 2 0 0 0-4 0v-2"/></svg>
+              <span>Relocate</span>
+            </button>
+            <button class="tool-btn" id="btn-tool-inject" title="Click on Ground to Inject Custom Sensor">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <span>Inject</span>
+            </button>
+            <button class="tool-btn" id="btn-tool-delete" title="Click on Sensor to Decommission">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              <span>Remove</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Drag Coordinate HUD Badge -->
+          <div id="drag-coord-badge" class="drag-coord-badge" style="display: none;">
+            <span>X: 00.0m | Y: 00.0m</span>
+          </div>
 
           <!-- Top Viewport Badge & Legend -->
           <div class="viewport-overlay-top">
@@ -172,14 +229,14 @@
 
           <!-- Bottom Camera Controls -->
           <div class="viewport-controls-bar">
-            <button class="btn-ctrl active" id="btn-cam-iso" onclick="setCameraView('iso')">Perspective</button>
-            <button class="btn-ctrl" id="btn-cam-top" onclick="setCameraView('top')">Top-Down</button>
-            <button class="btn-ctrl" id="btn-cam-sink" onclick="setCameraView('sink')">Sink View</button>
+            <button class="btn-ctrl active" id="btn-cam-iso" onclick="setCameraView('iso')" data-explain="cam-iso">Perspective</button>
+            <button class="btn-ctrl" id="btn-cam-top" onclick="setCameraView('top')" data-explain="cam-top">Top-Down</button>
+            <button class="btn-ctrl" id="btn-cam-sink" onclick="setCameraView('sink')" data-explain="cam-sink">Sink View</button>
             <div class="ctrl-separator"></div>
-            <button class="btn-ctrl" id="btn-toggle-orbit" onclick="toggleOrbitCam()">
+            <button class="btn-ctrl" id="btn-toggle-orbit" onclick="toggleOrbitCam()" data-explain="toggle-orbit">
               <span id="orbit-cam-icon">↻</span> 360° Motion
             </button>
-            <button class="btn-ctrl active" id="btn-toggle-bubbles" onclick="toggleSensingBubbles()">
+            <button class="btn-ctrl active" id="btn-toggle-bubbles" onclick="toggleSensingBubbles()" data-explain="toggle-bubbles">
               <span>Disk Bubbles</span>
             </button>
           </div>
@@ -196,7 +253,7 @@
             <div class="control-label">
               <span>Benchmark Deployment Scenario</span>
             </div>
-            <select id="select-preset" class="form-select">
+            <select id="select-preset" class="form-select" data-explain="preset-select">
               <option value="s1">Scenario 1: Sparse Grid (N=30, Rs=10m)</option>
               <option value="s2" selected>Scenario 2: Standard Benchmark (N=50, Rs=15m)</option>
               <option value="s3">Scenario 3: High Density Cluster (N=80, Rs=12m)</option>
@@ -206,9 +263,46 @@
 
           <div class="control-group">
             <div class="control-label">
+              <span>Terrain Constraints & Obstacles</span>
+            </div>
+            <select id="select-obstacle-preset" class="form-select" data-explain="obstacle-preset-select">
+              <option value="none" selected>None (Open Uniform 100m × 100m)</option>
+              <option value="central-lake">Preset 1: Central Hazard / Lake (40–60m)</option>
+              <option value="dual-walls">Preset 2: Dual Facility Structural Walls</option>
+              <option value="corner-zones">Preset 3: Perimeter Water Basins</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Mission Targets & POI Tracking</span>
+              <span id="poi-status-badge" class="badge-mini badge-cyan">Inactive</span>
+            </div>
+            <select id="select-poi-preset" class="form-select" data-explain="poi-preset-select">
+              <option value="none" selected>None (Uniform Field Coverage)</option>
+              <option value="high-value-assets">Preset 1: Static High-Value Asset Hubs (3 POIs)</option>
+              <option value="perimeter-patrol">Preset 2: Mobile Perimeter Intruders (2 Moving)</option>
+              <option value="dynamic-convoy">Preset 3: Cross-Field Dynamic Convoy (3 Units)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Sleep/Wake Duty-Cycle</span>
+              <span id="duty-cycle-badge" class="badge-mini badge-cyan">100% Active</span>
+            </div>
+            <select id="select-duty-cycle" class="form-select" data-explain="duty-cycle-select">
+              <option value="none" selected>Continuous 100% Active (Baseline)</option>
+              <option value="adaptive-redundancy">Preset 1: Adaptive Redundancy Sleep Scheduling</option>
+              <option value="harvesting-duty-cycle">Preset 2: Sleep with Ambient Solar Harvesting (+0.15mJ)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
               <span>Optimization Algorithm</span>
             </div>
-            <select id="select-algorithm" class="form-select">
+            <select id="select-algorithm" class="form-select" data-explain="algo-select">
               <option value="ea-vvf-mopso" selected>EA-VVF-MOPSO (Energy-Aware Proposed)</option>
               <option value="vfa">Virtual Force Algorithm (VFA)</option>
               <option value="pso">Particle Swarm Optimization (PSO)</option>
@@ -223,7 +317,7 @@
               <span>Sensor Nodes (N)</span>
               <span class="control-val" id="val-nodes">50</span>
             </div>
-            <input type="range" id="slider-nodes" min="15" max="150" value="50" step="5" />
+            <input type="range" id="slider-nodes" min="15" max="150" value="50" step="5" data-explain="slider-nodes" />
           </div>
 
           <div class="control-group">
@@ -231,7 +325,7 @@
               <span>Sensing Radius (Rs)</span>
               <span class="control-val" id="val-rs">15m</span>
             </div>
-            <input type="range" id="slider-rs" min="8" max="30" value="15" step="1" />
+            <input type="range" id="slider-rs" min="8" max="30" value="15" step="1" data-explain="slider-rs" />
           </div>
 
           <div class="control-group">
@@ -239,28 +333,60 @@
               <span>Communication Radius (Rc)</span>
               <span class="control-val" id="val-rc">30m</span>
             </div>
-            <input type="range" id="slider-rc" min="15" max="60" value="30" step="1" />
+            <input type="range" id="slider-rc" min="15" max="60" value="30" step="1" data-explain="slider-rc" />
+          </div>
+
+          <hr class="section-divider" />
+
+          <!-- Channel Impairment & Cyber-Physical Faults -->
+          <div class="step-label" style="color: #FDA4AF; letter-spacing: 0.08em;">FAULT INJECTION & CHANNEL IMPAIRMENTS</div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>RF Jammer & Interference</span>
+              <span id="jammer-badge" class="badge-mini badge-cyan">Off</span>
+            </div>
+            <select id="select-jammer-preset" class="form-select" data-explain="jammer-preset-select">
+              <option value="none" selected>None (Clean Spectrum)</option>
+              <option value="central-jammer">Preset 1: Central High-Power Jammer (R=22m)</option>
+              <option value="dual-jammers">Preset 2: Dual Cross-Corridor Jammers</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Path Loss Exponent (α)</span>
+              <span class="control-val" id="val-path-loss">2.0 (Free Space)</span>
+            </div>
+            <input type="range" id="slider-path-loss" min="2.0" max="4.0" value="2.0" step="0.1" data-explain="slider-path-loss" />
+          </div>
+
+          <div class="control-group" style="margin-top: 0.35rem; margin-bottom: 0.5rem;">
+            <button class="btn-secondary btn-emp-blast" id="btn-trigger-emp" data-explain="btn-trigger-emp">
+              <span class="pulse-warning-dot"></span>
+              <span>Trigger Regional EMP Blast</span>
+            </button>
           </div>
 
           <hr class="section-divider" />
 
           <!-- Phase 1: Spatial Repositioning -->
           <div class="step-label">PHASE 1: SPATIAL OPTIMIZATION</div>
-          <button class="btn-primary-glow" id="btn-run-optimization">
+          <button class="btn-primary-glow" id="btn-run-optimization" data-explain="btn-run-opt">
             <span>Execute Spatial Repositioning</span>
           </button>
 
           <!-- Phase 2: Multi-Hop Routing -->
           <div class="step-label step-label-emerald">PHASE 2: DATA ROUTING DYNAMICS</div>
           <div class="control-group" style="margin-bottom: 0.5rem;">
-            <select id="select-routing-proto" class="form-select">
+            <select id="select-routing-proto" class="form-select" data-explain="routing-proto-select">
               <option value="hybrid" selected>Hybrid LEACH-PEGASIS Protocol</option>
               <option value="pegasis">PEGASIS Protocol (Chain Hop)</option>
               <option value="leach">LEACH Protocol (Direct Cluster Relay)</option>
             </select>
           </div>
 
-          <button class="btn-primary-glow btn-routing" id="btn-start-routing">
+          <button class="btn-primary-glow btn-routing" id="btn-start-routing" data-explain="btn-start-routing">
             <span>Start Multi-Hop Packet Stream</span>
           </button>
 
@@ -270,7 +396,7 @@
 
           <hr class="section-divider" />
 
-          <button class="btn-secondary" id="btn-reset-deployment">
+          <button class="btn-secondary" id="btn-reset-deployment" data-explain="btn-reset-deployment">
             <span>Reset to Initial Distribution</span>
           </button>
 
@@ -340,17 +466,17 @@
           </div>
 
           <div class="banner-actions">
-            <select id="select-routing-tab-proto" class="form-select" style="width: auto; min-width: 200px;">
+            <select id="select-routing-tab-proto" class="form-select" style="width: auto; min-width: 200px;" data-explain="routing-proto-select">
               <option value="hybrid" selected>Hybrid LEACH-PEGASIS</option>
               <option value="pegasis">PEGASIS Protocol</option>
               <option value="leach">LEACH Protocol</option>
             </select>
 
-            <button class="btn-primary-glow btn-routing" id="btn-run-routing-tab">
+            <button class="btn-primary-glow btn-routing" id="btn-run-routing-tab" data-explain="btn-run-routing-tab">
               <span>Execute Routing Cycle</span>
             </button>
 
-            <button class="btn-secondary" id="btn-reset-routing-tab">
+            <button class="btn-secondary" id="btn-reset-routing-tab" data-explain="btn-reset-routing-tab">
               <span>Reset Energy States</span>
             </button>
           </div>
@@ -397,6 +523,16 @@
             <canvas id="chart-energy"></canvas>
           </div>
         </div>
+
+        <div class="glass-panel chart-card glass-panel-purple" data-tilt>
+          <h3 class="card-heading">
+            <span>Multi-Objective Algorithm Radar</span>
+            <span class="card-caption" id="radar-active-algo-caption">EA-VVF-MOPSO vs. Selected</span>
+          </h3>
+          <div class="chart-wrapper">
+            <canvas id="chart-radar" data-explain="chart-radar"></canvas>
+          </div>
+        </div>
       </div>
 
       <!-- Algorithmic Optimization & Mobility Energy Table -->
@@ -421,7 +557,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="clickable-algo-row" data-algo="random" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-leach">Random Placement</span></td>
                 <td>94.57%</td>
                 <td>81.65%</td>
@@ -432,7 +568,7 @@
                 <td>Round 439</td>
                 <td><span class="status-muted">Unoptimized Baseline</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-algo-row" data-algo="pso" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-pegasis">Standard PSO</span></td>
                 <td>100.00%</td>
                 <td>84.86%</td>
@@ -443,7 +579,7 @@
                 <td>Round 424</td>
                 <td><span class="status-rose">High Mobility Penalty</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-algo-row" data-algo="ga" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-purple">Genetic Algorithm (GA)</span></td>
                 <td>99.98%</td>
                 <td>81.89%</td>
@@ -454,7 +590,7 @@
                 <td>Round 649</td>
                 <td><span class="status-amber">Excessive Relocation</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-algo-row" data-algo="vfa" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-amber">Virtual Force (VFA)</span></td>
                 <td>100.00%</td>
                 <td>96.65%</td>
@@ -465,7 +601,7 @@
                 <td>Round 575</td>
                 <td><span class="status-amber">Elevated Overlap</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-algo-row" data-algo="voronoi" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-subtle">Centroidal Voronoi</span></td>
                 <td>46.24%</td>
                 <td>62.16%</td>
@@ -476,7 +612,7 @@
                 <td>Round 725</td>
                 <td><span class="status-rose">Boundary Contraction</span></td>
               </tr>
-              <tr>
+              <tr class="clickable-algo-row" data-algo="mopso" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-cyan">Standard MOPSO</span></td>
                 <td>93.24%</td>
                 <td>67.46%</td>
@@ -487,7 +623,7 @@
                 <td>Round 597</td>
                 <td><span class="status-amber">Moderate Displacement</span></td>
               </tr>
-              <tr class="highlight-row">
+              <tr class="clickable-algo-row highlight-row active-row" data-algo="ea-vvf-mopso" title="Click to compare in Radar Chart">
                 <td><span class="badge-tag badge-hybrid">EA-VVF-MOPSO (Proposed)</span></td>
                 <td><b>96.97%</b></td>
                 <td><b>76.43%</b></td>
@@ -609,6 +745,12 @@
     <div>EA-VVF-MOPSO • Energy-Aware Adaptive WSN Coverage Optimization & Hybrid Multi-Hop Routing</div>
     <div class="footer-meta">Spatial Dynamics & Protocol Analytics Laboratory</div>
   </footer>
+
+  <!-- Interactive Button & Control Explainer Popover -->
+  <div id="control-explainer-popover" class="glass-control-explainer" aria-live="polite"></div>
+
+  <!-- Notification Toast -->
+  <div id="app-toast" class="app-toast"></div>
 
   <script type="module" src="/src/app.js"></script>
 </body>
